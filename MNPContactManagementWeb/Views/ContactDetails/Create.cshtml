@@ -1,0 +1,83 @@
+﻿@model ContactDetails
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create New Contact</h2>
+            <hr/>
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                     <label asp-for="Name"></label>
+                     <input asp-for="Name" class="frm-control" maxlength="100" />
+                </div>
+                <div class="col-sm">
+                     <label asp-for="Address"></label>
+                     <input asp-for="Address" class="frm-control" maxlength="150" />
+                </div>
+                 <div class="col-sm">
+                      <label asp-for="LastDateContacted">Last Date Contacted</label>
+                      <input type="datetime" id="datepicker" asp-for="LastDateContacted" class="frm-control"  value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"/>
+                </div>
+            </div>
+        </div>
+    
+    <div class="container">
+        <div class="row">
+             <div class="col-sm">
+                      <label asp-for="JobTitle">Job Title</label>
+                      <input asp-for="JobTitle" class="frm-control" maxlength="50" />
+                </div>
+                <div class="col-sm">
+                     <label asp-for="Phone"></label>
+                     <input asp-for="Phone" class="frm-control" />
+                </div>
+                <div class="col-sm">
+                      <label style="display:none;" asp-for="LastDateContacted">Last Date Contacted</label>
+                      <input style="display:none;" type="datetime" id="datepicker" asp-for="LastDateContacted" class="frm-control"  value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"/>
+                </div>
+        </div>
+    </div>
+
+     <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                     <label asp-for="Company"></label>
+                    <select asp-for="Company" class="frm-control">
+                        <option>Disney</option>
+                        <option>HP</option>
+                        <option>Microsoft</option>
+                        <option>Google</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                      <label asp-for="Email"></label>
+                      <input type="email" asp-for="Email" class="frm-control" maxlength="100" />
+        
+                </div>
+                 <div class="col-sm">
+                       <label asp-for="Comments"></label>
+                       <textarea asp-for="Comments" maxlength="1000" class="frm-cotrol"></textarea>
+                </div>
+            </div>
+        </div>
+   <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
+   <a asp-controller="ContactDetails" asp-action="Index" class="btn btn-secondary" style="width:150px">Cancel</a>
+    </div>
+</form>
+
+@section Scripts{
+@{
+    <partial name="_ValidationScriptsPartial" />
+     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+}
+}
