@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Company>
+<partial name="_Notification" />
+
+<h1>Contact Details</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Company List</h2>
+        </div>
+    </div>
+    <table class="table table-bordered table-stripped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Company Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr>
+                    <td>
+                        @obj.CompanyName
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+</div>

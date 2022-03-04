@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ContactDetails = MNPContactManagementWeb.Models.ContactDetails;
 using Newtonsoft.Json;
 using System.Text;
+using MNPContactManagementWeb.Models;
+using System.Dynamic;
 
 namespace MNPContactManagementWeb.Controllers
 {
@@ -18,18 +19,44 @@ namespace MNPContactManagementWeb.Controllers
         public IActionResult Index()
         {
             var contactsList = new List<ContactDetails>();
+            contactsList = GetContactDetails();
+            return View(contactsList);
+        }
+
+        public List<ContactDetails> GetContactDetails()
+        {
+            var contactsList = new List<ContactDetails>();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/ContactDetails").Result;
             if (response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
                 contactsList = JsonConvert.DeserializeObject<List<ContactDetails>>(data);
             }
-            return View(contactsList);
+            return contactsList;
+        }
+
+        public IActionResult Company()
+        {
+            var companylist = new List<Company>();
+            companylist = GetCompanies();
+            return View(companylist);
+        }
+
+        public List<Company> GetCompanies()
+        {
+            var companyList = new List<Company>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Company").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                companyList = JsonConvert.DeserializeObject<List<Company>>(data);
+            }
+            return companyList;
         }
 
         public IActionResult Create()
         {
-            
+            ViewBag.Companies = GetCompanies();
             return View();
         }
 
@@ -59,6 +86,7 @@ namespace MNPContactManagementWeb.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Companies = GetCompanies();
             var contact = new ContactDetails();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/ContactDetails/" + id).Result;
             if (response.IsSuccessStatusCode)

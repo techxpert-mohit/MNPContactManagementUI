@@ -45,11 +45,11 @@
             <div class="row">
                 <div class="col-sm">
                      <label asp-for="Company"></label>
-                    <select asp-for="Company" class="frm-control">
-                        <option>Disney</option>
-                        <option>HP</option>
-                        <option>Microsoft</option>
-                        <option>Google</option>
+                     <select asp-for="Company" class="frm-control">
+                        @foreach(var obj in ViewBag.Companies)
+                        {
+                            <option>@obj.CompanyName</option>
+                        }
                     </select>
                 </div>
                 <div class="col-sm">
